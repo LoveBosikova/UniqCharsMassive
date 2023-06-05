@@ -3,37 +3,30 @@ const intersection = (...arrays) => {
         return null
     }
 
+    // Создаём массив для всех значений,, которые встречаются сразу во всех массивах.
     const commonCharsFromAll = [];
 
+    //Проверяем каждое значение в каждом массиве - встречается ли оно в каждом из переданных в функцию массивов.
     for (const array of arrays) {
         for (const item of array) {
-            
-            let commonItem = true;
 
+            // Изначально считаем элемент подходящим. Если вдруг он не встречается в каком-либо из массивов, меняем значение на фолси, то есть элемент нам не подходит.
+            let commonItem = true; 
             arrays.forEach((array) => {
                 if (!array.includes(item)) {
                     commonItem = false;
                 }
                 return commonItem;
             })
-
-            if (commonItem === true) {
+            
+            // Есди после проверок элемента во всех массивах он остаётся подходящим, и его еще нет в результирующем массиве, то записываем его в результирующий массив
+            if ((commonItem === true) && (!commonCharsFromAll.includes(item))) {
                 commonCharsFromAll.push(item);
             }
         }
     }
 
-    function makeArrUniq(arr) {
-        const result = [];
-
-        for (const item of arr) {
-            if (!(result.includes(item))) {
-                result.push(item);
-            }
-        }
-        return result;
-    }
-    return makeArrUniq(commonCharsFromAll);
+    return commonCharsFromAll;
 }
 
 const arr1 = [1, 2];
