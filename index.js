@@ -6,25 +6,24 @@ const intersection = (...arrays) => {
     // Создаём массив для всех значений,, которые встречаются сразу во всех массивах.
     const commonCharsFromAll = [];
 
-    //Проверяем каждое значение в каждом массиве - встречается ли оно в каждом из переданных в функцию массивов.
-    for (const array of arrays) {
-        for (const item of array) {
+    //Проверяем каждое значение в первом массиве - встречается ли оно в остальных массивах из переданных в функцию массивов.
+    const [firstArray, ...rest] = arrays;
+
+        for (const item of firstArray) {
 
             // Изначально считаем элемент подходящим. Если вдруг он не встречается в каком-либо из массивов, меняем значение на фолси, то есть элемент нам не подходит.
             let commonItem = true; 
-            arrays.forEach((array) => {
+            rest.forEach((array) => {
                 if (!array.includes(item)) {
                     commonItem = false;
                 }
                 return commonItem;
             })
-            
             // Есди после проверок элемента во всех массивах он остаётся подходящим, и его еще нет в результирующем массиве, то записываем его в результирующий массив
             if ((commonItem === true) && (!commonCharsFromAll.includes(item))) {
                 commonCharsFromAll.push(item);
             }
         }
-    }
 
     return commonCharsFromAll;
 }
